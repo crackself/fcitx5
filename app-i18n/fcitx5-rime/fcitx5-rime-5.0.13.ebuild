@@ -30,14 +30,20 @@ DEPEND="${RDEPEND}"
 
 src_configure() {
         local mycmakeargs=(
-                -DCMAKE_INSTALL_LIBDIR="${EPREFIX}/usr/$(get_libdir)"
-                -DCMAKE_INSTALL_SYSCONFDIR="${EPREFIX}/etc"
-		-DBUILD_SHARED_LIBS=TRUE
-		-DRIME_DATA_DIR=/etc/rime
+                -DBUILD_SHARED_LIBS=TRUE
+		-DRIME_DATA_DIR="/etc/rime"
         )
         cmake_src_configure
 }
 
 pkg_postinst() {
         xdg_pkg_postinst
+}
+
+pkg_postinst() {
+        xdg_icon_cache_update
+}
+
+pkg_postrm() {
+	xdg_icon_cache_update
 }
